@@ -1,0 +1,66 @@
+create table copy_employees
+as select *
+from employees;
+
+create table copy_departments
+as select *
+from departments;
+
+
+1. Insert new employee's data to the table:
+     1111, Brown, will be hired tomorrow, salary 3500, department 10, he will be a salesman (SA_REP),
+     his email address: brown@company
+
+INSERT INTO copy_employees
+(employee_id, last_name, hire_date, salary, department_id,job_id,email)
+VALUES
+(1111,'Brown',sysdate+1,3500,10,'SA_REP','brown@company');
+
+2. Insert new department's data to the table:
+     number: 30, name: HR, location: 2500
+
+INSERT INTO copy_departments
+(DEPARTMENT_ID	, DEPARTMENT_NAME, LOCATION_ID)
+VALUES
+(30, 'HR', 2500)
+
+##################################################################################
+
+3. Brown will report to manager with manager id equal to 200.
+#Done?
+update copy_employees
+set manager_id = 200
+where last_name = 'Brown'
+
+
+4. Salaries of employees that works in department 50 will increase of 100 $
+#Done
+UPDATE copy_employees
+SET salary = salary + 100
+WHERE department_id = 50
+
+
+5. For all employees at location 1800 the salaries will increase of 10%
+#Done?
+update copy_employees
+set salary = salary + salary*10/100
+WHERE department_id = (select department_id from copy_Departments
+				where location_id = 1800) 
+6. Delete rows for employees from departament 80.
+#Done
+DELETE from copy_employees
+WHERE department_id = (select department_id from copy_Departments
+				where department_id = 80) 
+
+7. Insert data of employees who work in departament 80 using employees table.
+#Done?
+
+Insert into COPY_EMPLOYEES
+select*from employees
+where department_id = 80
+
+8. Delete rows for employees from departament Shipping.
+#Done
+DELETE from copy_employees
+WHERE department_id = (select department_id from copy_Departments
+where department_name = 'Shipping')
