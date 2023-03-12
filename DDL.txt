@@ -1,0 +1,59 @@
+
+1. Create table FRIENDS with columns:
+name                    text, max. 20 characters
+surname                 text, max. 40 characters
+date_of_birth           date
+number_of_stamps       number,99999 is the highest number of stamps
+
+CREATE TABLE FRIENDS(
+    name varchar(255),
+    surname varchar(255),
+    date_of_birth DATE,
+    number_of_stamps number(5))
+
+2. Insert one row to the table FRIENDS
+
+INSERT INTO FRIENDS
+VALUES ('bahram','muzaffarli','28-Mar-2001',4)
+
+
+3. Create table SALES and insert data of salesmen using EMPLOYEES table (job_id starts with SA for each salesman)
+
+create table Sales(job_id)
+as select job_id
+from employees
+where job_id LIKE'SA%'
+   
+4. Create table CLERKS (with columns surname and monthly_salary) and insert data of clerks using EMPLOYEES table (job_id includes CLERK for each clerk)
+
+create table CLERKS (surname,monthly_salary)
+as select last_name,salary
+from employees
+where job_id like '%CLERK'
+
+5. Add a new employee data to table CLERKS: Adams, 7000.
+
+Insert into clerks
+Values('Adams', '7000')
+
+6. Remove SALES table from the database
+
+Drop table Sales
+
+7. Create empty table EMPTY with the same structure as EMPLOYEES table.
+
+create table Empty
+as select*
+from employees
+#&
+delete from empty
+
+
+
+
+
+#######################################################################
+8. Read from Data Dictionary the list of your table's names.
+
+
+

@@ -1,0 +1,104 @@
+1. Find last names, hire dates of employees who work in the same departments as Zlotkey does.
+
+select hire_Date,last_name
+from employees
+where department_id = (select department_id
+from employees
+where last_name = 'Zlotkey')
+
+2. Find the employees from the list found in previous task whose salary is lower than 
+   Zlotkey's salary but were hired before Zlotkey did.
+
+
+select hire_Date,last_name
+from employees
+where salary < (select salary
+from employees
+where last_name = 'Zlotkey')
+and
+hire_date < (select hire_Date
+from employees
+where last_name = 'Zlotkey')
+
+
+3. Whose salary is higher than average salary in the company?
+
+select last_name
+from employees
+where salary > (select avg(salary)
+from employees)
+
+#########################################################################3
+4. Who works with the president (PRES somewhere in the
+  job identification code) in the same department?
+#Done
+select last_name
+from employees
+where DEPARTMENT_ID=(select DEPARTMENT_ID
+from employees
+where job_id='AD_PRES')
+
+5. Find employees who work in the location 1700 - 2 possible solutions
+#NA
+
+SELECT first_name, last_name
+FROM employees
+WHERE department_id IN (SELECT department_id
+                        FROM departments
+                        WHERE location_id = 1700)
+OR
+select distinct last_name,location_id from departments, employees
+where location_id = 1700
+
+
+6. Who reports to King?
+
+SELECT first_name, last_name
+FROM employees
+WHERE manager_id IN (SELECT employee_id
+                     FROM employees
+                     WHERE last_name = 'King')
+
+
+7. Find employees whose salary is higher than each salesman's salary (SA in the begining of the job code)
+#Done
+select last_name 
+from employees
+where salary > ALL (select salary
+from employees
+where job_id like 'SA%')
+
+8. Is it true that manager (MAN at the end of job code) is the best paid job in this company? 
+   Find employees whose salary is higher than any manager's salary.
+
+SELECT last_name, salary,job_id
+FROM employees
+WHERE salary > ANY (SELECT salary FROM employees WHERE job_id LIKE '%MAN')
+
+
+9. Find employees from 90 department who were hired before all the employees from 80 
+   department
+
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE department_id = 90 AND hire_date < (SELECT MIN(hire_date)
+                                          FROM employees
+                                          WHERE department_id = 80)
+
+10. Find employees from 90 department who were hired before at least one employee from 80 
+    department
+#Done
+select last_name 
+from employees
+where hire_date< ANY
+(select hire_date
+from employees
+where department_id = 80)
+AND
+DEPARTMENT_ID = 90
+
+
+
+
+
+

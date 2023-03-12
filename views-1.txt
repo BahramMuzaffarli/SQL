@@ -1,0 +1,56 @@
+1. Create a view E_C that will display the complete clerks' data (string CLERK somewhere in the job_id).
+   Columns names in the view are the same as in original table.
+
+create view E_C as
+select job_id
+from employees
+where job_id like '%CLERK'
+
+2. Create a view E_C_3000 that will display the clerks' employee's number, surnames, monthly salaries 
+   whose salaries are higher than 3000.Columns names in the view are the same as in original table.
+
+create view E_C_3000 as
+select employee_id,last_name,salary
+from employees
+where salary>3000
+
+3. Create a view E_SAL with the columns: surname, job, department that will display surnames, job codes,
+   department numbers of salesmen who were hired before Matos 
+
+create view E_SAL("Surname","Job","Department")
+as select last_name,job_id,department_id
+from employees
+where hire_date < (select hire_date
+from employees
+where last_name ='Matos')
+
+4. Create a view E_DEP that will display the employee's surname, department number, department name and 
+   department location.Columns names in the view are the same as in original tables.
+
+create view E_DEP as
+select e.last_name,d.department_name, d.location_id, department_id
+from employees e JOIN departments d
+using(department_id)
+
+5. Create a view DEPT_AGG that will display the department's numbers,the highest and the lowest salaries 
+   in each department. Remember about correct column names.
+
+create view DEPT_AGG
+("Department_Id","The Highest Salary"," The Lowest Salary")
+as select department_id, MAX(salary), MIN(salary)
+from employees
+GROUP BY department_id
+
+
+6. Remove the E_C view
+
+DROP VIEW E_C
+
+
+#################################################################################
+7. Read Data Dictionary. What are the definitions of E_C_3000 and DEPT_AGG views?
+
+
+
+
+

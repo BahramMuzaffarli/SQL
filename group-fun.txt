@@ -1,0 +1,98 @@
+1. Find the highest, the lowest, the average salary for all staff members.
+
+	select avg(salary), min(salary), max(salary)
+	from employees
+
+2. Find the highest, the lowest, the average salary for each particular job.
+
+	select  max(salary), min(salary), avg(salary), job_id
+	from employees
+	group by job_id
+
+3. Find the highest, the lowest, the average salary for staff members who work
+   in department 50.
+
+	select avg(salary), min(salary), max(Salary)
+	from employees
+	where department_id = 50
+
+4. Find the number of employees who work on each position (with the same job_id)?
+
+	select count(job_id) "Worker Counts", job_id
+	from employees
+	group by job_id
+
+5. Find the number of individuals who manage other employees. Analyze the column MANAGER_ID.
+
+	select count(manager_id) "ManagerCounts", manager_id
+	from employees
+	group by manager_id
+
+
+########################### AFTER 6 same manager problem
+6. Find the values of the lowest salary for staff members who have the same manager.
+
+	select min(salary), manager_id
+	from employees
+	group by manager_id
+
+7. Find the values of the lowest salary for staff members who have the same manager. 
+   Don't display the unknown manager's group.
+
+	select min(salary), manager_id
+	from employees
+	where  manager_id IS NOT NULL 
+	group by manager_id
+
+8. Find the values of the lowest salary for staff members who have the same manager. 
+   Don't display the unknown manager's group. 
+   Don't display the lowest salary if it is greater than 10000
+
+	select min(salary), manager_id
+	from employees
+	where  manager_id IS NOT NULL and salary <10000
+	group by manager_id
+
+9. What is the diffirence between the highest and the lowest salary?
+
+	select max(salary)- min(Salary) "Differences max and min salary"
+	from employees
+
+##################################################################################################################################
+
+
+	10.Find the departments in which the highest salary is greater than 10 000. 
+   Display only these departments that hire more than 2 employees
+#NA->hazir
+select department_id,max(salary),count(department_id)
+from employees
+group by department_id
+having max(salary)> 10000 and count(department_id )>2
+
+
+	11. Find the dates of hiring employees who work for the longest time in each department?
+#hazir
+select department_id, max(hire_date)
+from employees
+group by department_id
+order by department_id
+
+	12. Find the highest managers' salaries (job_id ends with MAN) in each department.
+    Order rows starting from the highest salary.
+#hazir
+SELECT  max(salary), department_id, job_id
+from employees
+where job_id like'%MAN'	
+group by department_id, job_id
+order by max(salary) desc
+
+	13. How many employees were hired in years: 1994, 1995, 1996 
+#NA->hazir
+select count(last_name)
+from employees
+where hire_Date between '01-Jan-1994'	and '31-Dec-1996'	
+
+select to_char(hire_date,'YYYY'), count(*)
+from employees
+where to_char(hire_date,'YYYY') between '1994' and '1996'
+group by to_char(hire_date,'YYYY')

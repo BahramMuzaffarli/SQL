@@ -1,0 +1,84 @@
+
+
+4. Display employees last names in three ways: letters in lower case, 
+   in upper case, as they are stored in table
+
+Select last_name From employees
+
+
+SELECT LOWER(last_name)
+FROM employees
+
+SELECT UPPER(last_name)
+FROM employees
+
+
+5. For each employee build the code the consists of 2 first letters of the surname,
+   department number and the first letter of job code.
+
+SELECT SUBSTR(last_name, 1, 2) as Lastname, DEPARTMENT_ID,SUBSTR(job_id, 1, 1)
+
+FROM employees
+
+
+6. Who has the surname that includes letters le at 4th and 5th position?
+
+SELECT last_name AS NAME
+FROM employees
+WHERE last_name LIKE '___le%'
+
+7. Display the surnames of employees with added (after the name) as many signs '+' as 
+   the many letters include the name.
+
+	SELECT  last_name, Rpad(last_name, length(last_name)+ length(last_name), '+')
+
+	FROM employees
+
+9. Who has the susrname that constists of more than 4 letters?
+
+SELECT last_name
+FROM employees
+WHERE LENGTH(last_name) > 4 
+
+10. Display the surnames, salaries of employees from 50th departments.
+    Calculate their Christmas bonuses as 7,5% of salary. The result should be rounded 
+    to whole numbers.
+
+SELECT last_name,TRUNC(SALARY * 0.075 ) "Bonus Wage"
+FROM employees
+WHERE DEPARTMENT_ID = 50 
+ 
+11. How many days and days in whole number have the employees worked?  
+    (only employees with SA at the beginning of job code)
+
+SELECT employee_id,ROUND(SYSDATE- hire_date) "Working Time" , job_id 
+
+FROM employees
+WHERE job_id LIKE 'SA%'
+
+12. How many months and whole months have the employees worked? 
+
+SELECT employee_id, hire_date, ROUND((SYSDATE- hire_date)/30) "WORKING  Month"
+	from employees
+
+13. How many years and whole years have the employees worked? 
+
+	SELECT employee_id, hire_date, ROUND((SYSDATE- hire_date)/365) "WORKING  Years"
+	from employees
+
+14. What was the day of the week when Matos was hired?
+SELECT (last_name),TO_CHAR(hire_date
+, 'fmDay')
+FROM employees
+
+where (last_name) = 'Matos'
+
+15. What is the day of your life today?
+SELECT TO_CHAR(CURRENT_DATE
+, 'fmDay') from dual
+
+16. Display the surnames of employees and identification numbers of their managers.
+    For employees who have no manager, display '***'.
+
+SELECT last_name, nvl(to_char(manager_id), '***')
+FROM employees

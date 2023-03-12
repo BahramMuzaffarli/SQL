@@ -1,0 +1,99 @@
+
+3. Create a query that will return last names, IDs, quarter earnings
+   of employees. Earnings includes monthly salaries and monthly commissions. 
+   Remember about column aliases to improve readability of report
+
+select last_name,
+       job_id,
+       (salary + salary * NVL(commission_pct, 0)) * 3 AS QUARTER_EARNINGS
+from employees;
+
+1. What are the last names, job IDs of employees who work in the department 50
+   and have the salary greater than 3000 
+SELECT last_name, job_ıd
+FROM employees
+where DEPARTMENT_ID =50 and salary>3000
+
+
+2. Create a query that will return IDs of employees and their annual 
+   earnings (including commission and bonus)
+
+select employee_id, 12*(salary*nvl(commission_pct,0) + salary + nvl(bonus,0)) "ANNUAL EARNINGS" from employees.
+
+
+
+
+3. Who is not a clerk? (clerk has a job id that consists of CLERK somewhere in the job_id)
+SELECT EMPLOYEE_ID,first_name,JOB_ID
+
+FROM employees
+
+where JOB_ID != 'ST_CLERK';
+
+
+4. Who was hired in 1993?
+SELECT *
+
+FROM employees
+
+Where HIRE_DATE >= '1/jan/1993' and  HIRE_DATE < '1/jan/1994'
+
+5. Who was hired after January the 1st of 1993?
+SELECT *
+
+FROM employees
+
+Where HIRE_DATE > '1/jan/1993'
+
+6. Create a query that will return employees from departaments 10 and 90
+
+SELECT First_name,department_ıd
+
+FROM employees
+
+Where DEPARTMENT_ID = 10 or DEPARTMENT_ID =90
+
+7. Create a query that will return employees who are before King at the 
+   employees list made in alphabetical order
+
+select last_name from employees
+
+where last_name < 'King'
+order by last_name
+
+8. Who is not approved to earn commission?
+Select first_name, last_name, COMMISSION_PCT from employees
+
+where COMMISSION_PCT is NULL
+9. Who is approved to earn commission?
+Select first_name, last_name, COMMISSION_PCT from employees
+
+where COMMISSION_PCT is NOT NULL
+
+10. Who has the last name that consists of 4 letters and starts with "K"?
+SELECT
+  last_name,LENGTH(last_name)
+  
+ FROM
+  employees
+
+ WHERE last_name LIKE 'K%' and LENGTH(last_name) = 4
+ ORDER BY   
+  LENGTH(last_name) DESC
+
+11. Create a query that will return employees whose salaries are greater
+    than 5000 and less than 10000
+
+SELECT
+  First_name,salary
+  
+ FROM
+  employees
+Where salary>5000 and salary<10000
+
+order by salary
+
+
+
+ 
+ 

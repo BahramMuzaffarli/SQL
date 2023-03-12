@@ -1,0 +1,94 @@
+1. Find last names, job identification codes, salaries, department names of the 
+employees
+
+select employees.last_name, employees.job_id,employees.salary, departments.DEPARTMENT_NAME	
+from employees, departments
+where employees.department_id = departments.department_id
+
+ OR
+
+select e.last_name, e.job_id,e.salary, d.DEPARTMENT_NAME	
+from employees e, departments d
+where e.department_id = d.department_id
+
+?? IF DATABASE'S NAME IS SAME ??
+
+2. Find last names, job identification codes, salaries, department names of the 
+salesmen (SA at the begining of the job identification code).
+
+select employees.last_name, employees.job_id,employees.salary, departments.DEPARTMENT_NAME	
+from employees, departments
+where employees.department_id = departments.department_id and employees.job_id LIKE 'SA%'
+
+  OR
+
+select e.last_name, e.job_id,e.salary, d.DEPARTMENT_NAME	
+from employees e, departments d
+where e.department_id = d.department_id and e.job_id LIKE 'SA%'
+
+
+3. Find last names, job identification codes, salaries, department names of the 
+employees from department 50 and 60.
+
+select employees.last_name, employees.job_id,employees.salary, departments.DEPARTMENT_NAME	
+from employees, departments
+where employees.department_id = departments.department_id and departments.department_id in (50, 60)
+
+ OR
+
+select e.last_name, e.job_id,e.salary, d.DEPARTMENT_NAME	
+from employees e, departments d
+where e.department_id = d.department_id and d.department_id in (50, 60)
+
+4. Find employees who work in the location 1700?
+
+select employees.first_name, employees.last_name
+from employees, departments
+where employees.department_id = departments.department_id
+And departments.LOCATION_ID = 1700
+
+OR
+
+select e.first_name, e.last_name
+from employees e, departments d
+where e.department_id = d.department_id
+And d.LOCATION_ID = 1700
+
+5. What is the highest salary in location 1700?
+
+select  employees.last_name,jobs.max_salary, departments.location_id
+from employees , departments , jobs 
+where employees.department_id = departments.department_id and employees.job_id = jobs.job_id
+And departments.LOCATION_ID = 1700
+
+OR
+
+select  e.last_name,j.max_salary, d.location_id
+from employees e, departments d, jobs j
+where e.department_id = d.department_id and e.job_id = j.job_id
+And d.LOCATION_ID = 1700
+
+	???One highest salary orr all location_id = 1700 highest salary???
+
+#####################################################################################
+6. Find last names and grade levels of the employees.
+select*from JOB_GRADES
+
+select last_name, grade_level
+from employees, job_grades
+
+7. Find employees who work as a clerk (CLERK somewhere in the job identification code)
+   and belong to grade level B?
+
+select last_name, grade_level, job_id
+from employees, job_grades
+where (job_id = 'ST_CLERK') and (grade_level = 'B')
+
+
+8. Create report that display employees from Shipping department who work longer than 
+   19 years.
+
+select last_name
+from employees, departments
+ where (department_name = 'Shipping') and (sysdate  - hire_date) >19
+
